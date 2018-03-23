@@ -1,0 +1,66 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Menlo-Regular;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red184\green14\blue61;
+\red247\green238\blue241;\red242\green242\blue242;\red128\green128\blue128;\red0\green0\blue255;\red255\green0\blue255;
+}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c78039\c14510\c30588;
+\cssrgb\c97647\c94902\c95686;\cssrgb\c96078\c96078\c96078;\csgenericrgb\c50196\c50196\c50196;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c100000\c0\c100000;
+}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 The\'a0
+\f1\fs25\fsmilli12600 \cf4 \cb5 \strokec4 Employee
+\f0\fs28 \cf2 \cb3 \strokec2 \'a0table holds all employees. Every employee has an Id, a salary, and there is also a column for the department Id.\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs26 \cf2 \cb6 +----+-------+--------+--------------+\
+| Id | Name  | Salary | DepartmentId |\
++----+-------+--------+--------------+\
+| 1  | Joe   | 70000  | 1            |\
+| 2  | Henry | 80000  | 2            |\
+| 3  | Sam   | 60000  | 2            |\
+| 4  | Max   | 90000  | 1            |\
++----+-------+--------+--------------+\
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 The\'a0
+\f1\fs25\fsmilli12600 \cf4 \cb5 \strokec4 Department
+\f0\fs28 \cf2 \cb3 \strokec2 \'a0table holds all departments of the company.\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs26 \cf2 \cb6 +----+----------+\
+| Id | Name     |\
++----+----------+\
+| 1  | IT       |\
+| 2  | Sales    |\
++----+----------+\
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 Write a SQL query to find employees who have the highest salary in each of the departments. For the above tables, Max has the highest salary in the IT department and Henry has the highest salary in the Sales department.\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs26 \cf2 \cb6 +------------+----------+--------+\
+| Department | Employee | Salary |\
++------------+----------+--------+\
+| IT         | Max      | 90000  |\
+| Sales      | Henry    | 80000  |\
++------------+----------+--------+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs21 \cf7 ;\cf8 with\cf0  CTE \cf8 AS\cf0 \
+\cf7 (\cf8 SELECT\cf0  Id\cf7 ,\cf0  Name\cf7 ,\cf0  Salary\cf7 ,\cf0  DepartmentId\cf7 ,\cf0  \cf9 RANK\cf7 ()\cf0  \cf8 OVER \cf7 (\cf8 PARTITION\cf0  \cf8 BY\cf0  DepartmentId \cf8 ORDER\cf0  \cf8 BY\cf0  Salary \cf8 DESC\cf7 )\cf0  \cf8 AS\cf0  [Salary_Rank]\
+\cf8 FROM\cf0  Employee\
+\cf7 )\cf0 \
+\cf8 SELECT\cf0  d\cf7 .\cf0 Name\cf7 ,\cf0  c\cf7 .\cf0 Name\cf7 ,\cf0  c\cf7 .\cf0 Salary\
+\cf8 FROM\cf0  Department d \cf7 LEFT\cf0  \cf7 JOIN\cf0  CTE c \cf8 on\cf0  d\cf7 .\cf0 Id \cf7 =\cf0  c\cf7 .\cf0 DepartmentId\
+\cf8 WHERE\cf0  [Salary_Rank] \cf7 =\cf0  1\
+\cf8 ORDER\cf0  \cf8 BY\cf0  c\cf7 .\cf0 Salary \cf8 DESC\
+}

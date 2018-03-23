@@ -1,0 +1,20 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red128\green128\blue128;\red255\green0\blue255;
+\red255\green0\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c50196\c50196\c50196;\csgenericrgb\c100000\c0\c100000;
+\csgenericrgb\c100000\c0\c0;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs21 \cf2 SELECT\cf0  \cf3 *\cf0  \cf2 FROM\cf0  friend_request\
+\
+\cf2 SELECT\cf0  \cf3 *\cf0  \cf2 FROM\cf0  request_accepted\
+\
+ \cf2 SELECT\cf0  \
+\cf2 	\cf3 (\cf4 CAST\cf3 ((\cf2 select\cf0  \cf4 count\cf3 (*)\cf0  \cf2 from \cf3 (\cf2 select\cf0  \cf2 distinct\cf0  requester_id\cf3 ,\cf0  accepter_id \cf2 from\cf0  request_accepted\cf3 )\cf0 a\cf3 )\cf0  \cf2 AS\cf0  \cf2 FLOAT\cf3 )\cf0 \
+	\cf3 /\cf0 	\
+	\cf4 CAST\cf3 ((\cf2 select\cf0  \cf4 count\cf3 (*)\cf0  \cf2 from \cf3 (\cf2 select\cf0  \cf2 distinct\cf0  sender_id\cf3 ,\cf0  send_to_id \cf2 from\cf0  friend_request\cf3 )\cf0 b\cf3 )\cf0  \cf2 AS\cf0  \cf2 FLOAT\cf3 ))\cf0 \
+	\cf2 AS\cf0  \cf5 'Overall_Acceptance_Rate'\cf0 \
+\
+}
