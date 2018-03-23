@@ -7,7 +7,25 @@
 \margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\fs21 \cf2 SELECT\cf0  \cf3 *\cf0  \cf2 FROM\cf0  LinkedIn_test\
+\f0\fs21 \cf0 LinkedIn_test
+\fs24      \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 email_id    activity    time_stamp\
+564         sent        11/24/14 22:29\
+687         edit        11/24/14 16:00\
+54687       reviewed    11/24/14 16:01\
+8724        edit        11/24/14 16:00\
+2674687     edit        11/24/14 22:29\
+564         reviewed    11/24/14 22:29\
+8724        reviewed    11/25/14 16:00\
+564         sent        11/26/14 16:01\
+564         resolved    11/26/14 16:00\
+\
+Find out the percentage of emails reviewed on a daily basis\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs21 \cf2 SELECT\cf0  \cf3 *\cf0  \cf2 FROM\cf0  LinkedIn_test\
 \
 \cf2 SELECT\cf0 \
 	\cf4 CAST\cf3 (\cf0 [timestamp] \cf2 AS\cf0  \cf2 DATE\cf3 )\cf0  \cf2 as\cf0  \cf5 'Date'\cf3 ,\cf0  \

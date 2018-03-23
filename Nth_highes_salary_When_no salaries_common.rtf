@@ -1,0 +1,76 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 HelveticaNeue;
+\f3\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red184\green14\blue61;\red247\green238\blue241;
+\red38\green38\blue38;\red242\green242\blue242;\red255\green255\blue255;\red0\green0\blue255;\red128\green128\blue128;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c78039\c14510\c30588;\cssrgb\c97647\c94902\c95686;
+\cssrgb\c20000\c20000\c20000;\cssrgb\c96078\c96078\c96078;\cssrgb\c100000\c100000\c100000;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c50196\c50196\c50196;
+}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl280\sa200\partightenfactor0
+
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Write a SQL query to get the\'a0
+\i n
+\i0\fs21 th
+\fs24 \'a0highest salary from the\'a0
+\f1\fs25\fsmilli12600 \cf3 \cb4 \strokec3 Employee
+\f0\fs24 \cf2 \cb1 \strokec2 \'a0table.\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs26 \cf5 \cb6 \strokec5 +----+--------+\
+| Id | Salary |\
++----+--------+\
+| 1  | 100    |\
+| 2  | 200    |\
+| 3  | 300    |\
++----+--------+\
+\pard\pardeftab720\sl280\sa200\partightenfactor0
+
+\f0\fs24 \cf2 \cb1 \strokec2 For example, given the above Employee table, the\'a0
+\i n
+\i0\fs21 th
+\fs24 \'a0highest salary where\'a0
+\i n
+\i0 \'a0= 2 is\'a0
+\f1\fs25\fsmilli12600 \cf3 \cb4 \strokec3 200
+\f0\fs24 \cf2 \cb1 \strokec2 . If there is no\'a0
+\i n
+\i0\fs21 th
+\fs24 \'a0highest salary, then the query should return\'a0
+\f1\fs25\fsmilli12600 \cf3 \cb4 \strokec3 null
+\f0\fs24 \cf2 \cb1 \strokec2 .\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs26 \cf5 \cb6 \strokec5 +------------------------+\
+| getNthHighestSalary(2) |\
++------------------------+\
+| 200                    |\
++------------------------+\
+\pard\pardeftab720\sl300\sa300\partightenfactor0
+
+\f2\fs25\fsmilli12600 \cf5 \cb7 \
+\pard\pardeftab720\sl360\qc\partightenfactor0
+
+\fs24 \cf5 \
+\pard\pardeftab720\sl300\partightenfactor0
+
+\fs25\fsmilli12600 \cf5 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f3\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs21 \cf8 SELECT\cf0  \cf9 *\cf0  \cf8 FROM\cf0  Employee\
+\
+\cf8 SELECT\cf0  \cf8 TOP\cf0  1 Name\cf9 ,\cf0  Salary\
+\cf8 FROM\cf0 \
+\cf8 	\cf9 (\cf8 SELECT\cf0  \cf8 DISTINCT\cf0  \cf8 TOP\cf0  3 Name\cf9 ,\cf0  Salary\
+	\cf8 FROM\cf0  Employee\
+	\cf8 ORDER\cf0  \cf8 BY\cf0  Salary \cf8 DESC\cf9 )\cf0 a\
+\cf8 ORDER\cf0  \cf8 BY\cf0  Salary\
+\
+}

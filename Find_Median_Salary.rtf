@@ -1,0 +1,83 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 Menlo-Regular;
+}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red184\green14\blue61;
+\red247\green238\blue241;\red242\green242\blue242;\red0\green0\blue255;\red128\green128\blue128;\red255\green0\blue255;
+}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c78039\c14510\c30588;
+\cssrgb\c97647\c94902\c95686;\cssrgb\c96078\c96078\c96078;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c50196\c50196\c50196;\csgenericrgb\c100000\c0\c100000;
+}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f1\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 The\'a0
+\f2\fs25\fsmilli12600 \cf4 \cb5 \strokec4 Employee
+\f1\fs28 \cf2 \cb3 \strokec2 \'a0table holds all employees. The employee table has three columns: Employee Id, Company Name, and Salary.\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\fs26 \cf2 \cb6 +-----+------------+--------+\
+|Id   | Company    | Salary |\
++-----+------------+--------+\
+|1    | A          | 2341   |\
+|2    | A          | 341    |\
+|3    | A          | 15     |\
+|4    | A          | 15314  |\
+|5    | A          | 451    |\
+|6    | A          | 513    |\
+|7    | B          | 15     |\
+|8    | B          | 13     |\
+|9    | B          | 1154   |\
+|10   | B          | 1345   |\
+|11   | B          | 1221   |\
+|12   | B          | 234    |\
+|13   | C          | 2345   |\
+|14   | C          | 2645   |\
+|15   | C          | 2645   |\
+|16   | C          | 2652   |\
+|17   | C          | 65     |\
++-----+------------+--------+\
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f1\fs28 \cf2 \cb3 Write a SQL query to find the median salary of each company. Bonus points if you can solve it without using any built-in SQL functions.\cb1 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\fs26 \cf2 \cb6 +-----+------------+--------+\
+|Id   | Company    | Salary |\
++-----+------------+--------+\
+|5    | A          | 451    |\
+|6    | A          | 513    |\
+|12   | B          | 234    |\
+|9    | B          | 1154   |\
+|14   | C          | 2645   |\
++-----+------------+--------+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs21 \cf7 WITH\cf0  Counts \cf7 AS\cf0 \
+\cf8 (\cf0 \
+\cf7 SELECT\cf0  Company\cf8 ,\cf0  \cf9 COUNT\cf8 (*)\cf0  \cf7 AS\cf0  cnt\
+\cf7 FROM\cf0  Employee\
+\cf7 GROUP\cf0  \cf7 BY\cf0  Company\
+\cf8 ),\cf0 \
+RowNums \cf7 AS\cf0 \
+\cf8 (\cf0 \
+\cf7 SELECT\cf0  Id\cf8 ,\cf0  Company\cf8 ,\cf0  Salary\cf8 ,\cf0 \
+\cf9 ROW_NUMBER\cf8 ()\cf0  \cf7 OVER\cf8 (\cf7 PARTITION\cf0  \cf7 BY\cf0  Company \cf7 ORDER\cf0  \cf7 BY\cf0  Salary\cf8 )\cf0  \cf7 AS\cf0  n\
+\cf7 FROM\cf0  Employee\
+\cf8 )\cf0 \
+\cf7 SELECT\cf0  R\cf8 .\cf0 Id\cf8 ,\cf0  C\cf8 .\cf0 Company\cf8 ,\cf0  \cf9 AVG\cf8 (\cf0 R\cf8 .\cf0 Salary\cf8 )\cf0  \cf7 AS\cf0  median\
+\cf7 FROM\cf0  Counts \cf7 AS\cf0  C\
+\cf8 INNER\cf0  \cf8 JOIN\cf0  RowNums \cf7 AS\cf0  R\
+\cf7 on\cf0  C\cf8 .\cf0 Company \cf8 =\cf0  R\cf8 .\cf0 Company\
+\cf7 WHERE\cf0  n \cf8 IN\cf7  \cf8 (\cf7  \cf8 (\cf0  C\cf8 .\cf0 cnt \cf8 +\cf0  1 \cf8 )\cf0  \cf8 /\cf0  2\cf8 ,\cf7  \cf8 (\cf0  C\cf8 .\cf0 cnt \cf8 +\cf0  2 \cf8 )\cf0  \cf8 /\cf0  2 \cf8 )\cf0 \
+\cf7 GROUP\cf0  \cf7 BY\cf0  R\cf8 .\cf0 Id\cf8 ,\cf0  C\cf8 .\cf0 Company\cf8 ;\cf0  \
+\
+\
+}

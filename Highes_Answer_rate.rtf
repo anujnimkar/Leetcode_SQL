@@ -1,0 +1,92 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+\f3\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red184\green14\blue61;
+\red247\green238\blue241;\red242\green242\blue242;\red128\green128\blue128;\red0\green0\blue255;\red255\green0\blue255;
+\red255\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c78039\c14510\c30588;
+\cssrgb\c97647\c94902\c95686;\cssrgb\c96078\c96078\c96078;\csgenericrgb\c50196\c50196\c50196;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c100000\c0\c100000;
+\csgenericrgb\c100000\c0\c0;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Get the highest answer rate question from a table\'a0
+\f1\fs25\fsmilli12600 \cf4 \cb5 \strokec4 survey_log
+\f0\fs28 \cf2 \cb3 \strokec2 \'a0with these columns:\'a0
+\b uid
+\b0 ,\'a0
+\b action
+\b0 ,\'a0
+\b question_id
+\b0 ,\'a0
+\b answer_id
+\b0 ,\'a0
+\b q_num
+\b0 ,\'a0
+\b timestamp
+\b0 .\
+uid means user id; action has these kind of values: "show", "answer", "skip"; answer_id is not null when action column is "answer", while is null for "show" and "skip"; q_num is the numeral order of the question in current session.\
+Write a sql query to identify the question which has the highest answer rate.\
+\pard\pardeftab720\sl340\sa200\partightenfactor0
+
+\b \cf2 Example:
+\b0 \cb1 \uc0\u8232 \cb3 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f2\b\fs26 \cf2 \cb6 Input:
+\f1\b0 \
++------+-----------+--------------+------------+-----------+------------+\
+| uid  | action    | question_id  | answer_id  | q_num     | timestamp  |\
++------+-----------+--------------+------------+-----------+------------+\
+| 5    | show      | 285          | null       | 1         | 123        |\
+| 5    | answer    | 285          | 124124     | 1         | 124        |\
+| 5    | show      | 369          | null       | 2         | 125        |\
+| 5    | skip      | 369          | null       | 2         | 126        |\
++------+-----------+--------------+------------+-----------+------------+\
+
+\f2\b Output:
+\f1\b0 \
++-------------+\
+| survey_log  |\
++-------------+\
+|    285      |\
++-------------+\
+
+\f2\b Explanation:
+\f1\b0 \
+question 285 has answer rate 1/1, while question 369 has 0/1 answer rate, so output 285.\
+\pard\pardeftab720\sl320\sa200\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \
+\pard\pardeftab720\sl340\sa200\partightenfactor0
+
+\b \cf2 Note:
+\b0 \'a0The highest answer rate meaning is: answer number's ratio in show number in the same question.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f3\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs21 \cf7 ;\cf8 with\cf0  CTE \cf8 AS\cf0 	\
+\cf8 	\cf7 (\cf8 SELECT\cf0  question_id\cf7 ,\cf0  \
+		   \cf9 SUM\cf7 (\cf8 CASE\cf0  \cf8 WHEN\cf0  Answer_given \cf7 =\cf0  1 \cf8 THEN\cf0  1 \cf8 ELSE\cf0  0 \cf8 END\cf7 )\cf0  \cf8 AS\cf0  \cf10 'Total_Answers_Received'\cf7 ,\cf0 	\
+		   \cf9 SUM\cf7 (\cf8 CASE\cf0  \cf8 WHEN\cf0  Answer_given \cf7 =\cf0  1 \cf7 OR\cf0  Answer_given \cf7 =\cf0  0 \cf8 THEN\cf0  1 \cf8 ELSE\cf0  0 \cf8 END\cf7 )\cf0  \cf8 AS\cf0  \cf10 'Total_Questions_Received'\cf7 ,\cf0 \
+		   \cf9 CAST\cf7 (\cf9 SUM\cf7 (\cf8 CASE\cf0  \cf8 WHEN\cf0  Answer_given \cf7 =\cf0  1 \cf8 THEN\cf0  1 \cf8 ELSE\cf0  0 \cf8 END\cf7 )\cf0  \cf8 AS\cf0  \cf8 FLOAT\cf7 )/\cf9 CAST\cf7 (\cf9 SUM\cf7 (\cf8 CASE\cf0  \cf8 WHEN\cf0  Answer_given \cf7 =\cf0  1 \cf7 OR\cf0  Answer_given \cf7 =\cf0  0 \cf8 THEN\cf0  1 \cf8 ELSE\cf0  0 \cf8 END\cf7 )\cf0  \cf8 AS\cf0  \cf8 FLOAT\cf7 )\cf0  \cf8 AS\cf0  \cf10 'Answer_Rate'\cf0 \
+	\cf8 FROM\cf0 \
+\cf8 		\cf7 (\cf8 SELECT\cf0  question_id\cf7 ,\cf0  Answer_given \
+		\cf8 FROM\cf0 \
+\cf8 		\cf7 (\cf8 SELECT\cf0  question_id\cf7 ,\cf0  q_num\cf7 ,\cf0  Answer_given\
+		\cf8 FROM\cf0 \
+\cf8 			\cf7 (\cf8 SELECT\cf0  question_id\cf7 ,\cf0  answer_id\cf7 ,\cf0  q_num\cf7 ,\cf0  \cf8 CASE\cf0  \cf8 WHEN\cf0  answer_id \cf7 IS\cf0  \cf7 NOT\cf0  \cf7 NULL\cf0  \cf8 THEN\cf0  \cf10 '1'\cf0  \cf8 ELSE\cf0  0 \cf8 END\cf0  \cf8 AS\cf0  \cf10 'Answer_given'\cf0 \
+			\cf8 FROM\cf0  survey_log\cf7 )\cf0 a\cf7 )\cf0 b\
+		\cf7 )\cf0 c\
+	\cf8 GROUP\cf0  \cf8 BY\cf0  question_id\
+	\cf7 )\cf0 \
+\cf8 SELECT\cf0  question_id\cf7 ,\cf0  Answer_Rate\
+\cf8 FROM\cf0  CTE\
+\cf8 WHERE\cf0  Answer_Rate \cf7 =\cf8  \cf7 (\cf8 SELECT\cf0  \cf9 MAX\cf7 (\cf0 Answer_Rate\cf7 )\cf0 \
+					\cf8 FROM\cf0  CTE\cf7 )\
+}
